@@ -73,7 +73,9 @@ function createMainWindow () {
 			} else {
 				win.hide();
 			}
-		}
+    } else {
+      mainWindow = null;
+    }
 	});
 
   win.on('page-title-updated', e => {
@@ -133,3 +135,9 @@ app.on('before-quit', () => {
 
   config.set('lastWindowState', mainWindow.getBounds());
 });
+
+app.on('window-all-closed', function () {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
